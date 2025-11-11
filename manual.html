@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像フォーマット一括変換ツール 取扱説明書</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #667eea;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: #764ba2;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .success {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .info {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 5px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            color: #757575;
+        }
+
+        .comparison-table {
+            font-size: 0.9rem;
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🖼️ 画像フォーマット一括変換ツール</h1>
+            <p>完全オフライン対応 | HEIC対応版 取扱説明書</p>
+            <p style="font-size: 0.85rem; margin-top: 10px;">バージョン 1.1.0 | 2025年11月</p>
+        </header>
+
+        <!-- 1. はじめに -->
+        <h2>1. はじめに</h2>
+        
+        <p>この度は「画像フォーマット一括変換ツール」をご利用いただき、ありがとうございます。</p>
+        
+        <div class="success">
+            <strong>✅ このツールでできること</strong><br>
+            <ul style="margin-top: 10px;">
+                <li>JPEG/PNG/WebP/AVIF/BMP/HEIC相互変換</li>
+                <li>複数画像の一括処理</li>
+                <li>品質調整</li>
+                <li>リサイズ（オプション）</li>
+                <li>変換後サイズのプレビュー</li>
+                <li>ZIP一括ダウンロード</li>
+            </ul>
+        </div>
+
+        <div class="info">
+            <strong>🆕 バージョン1.1.0の新機能</strong><br>
+            <ul style="margin-top: 10px;">
+                <li><strong>HEIC/HEIF形式の読み込みに対応</strong>（iPhoneで撮影した写真など）</li>
+                <li>HEIC画像を他の形式（JPEG/PNG/WebP等）に変換可能</li>
+                <li>変換プレビュー機能でHEIC画像のサイズ推定に対応</li>
+            </ul>
+        </div>
+
+        <!-- 2. 対応フォーマット -->
+        <h2>2. 対応フォーマット</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>フォーマット</th>
+                    <th>読み込み</th>
+                    <th>出力</th>
+                    <th>特徴</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>JPEG</strong></td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>最も汎用的。写真に最適。</td>
+                </tr>
+                <tr>
+                    <td><strong>PNG</strong></td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>透過対応。ロゴやアイコンに最適。</td>
+                </tr>
+                <tr>
+                    <td><strong>WebP</strong></td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>高圧縮率。Webサイトに最適。</td>
+                </tr>
+                <tr>
+                    <td><strong>AVIF</strong></td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>次世代フォーマット。最高の圧縮率。</td>
+                </tr>
+                <tr>
+                    <td><strong>BMP</strong></td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>無圧縮。印刷用。</td>
+                </tr>
+                <tr style="background: #fff3cd;">
+                    <td><strong>HEIC/HEIF</strong></td>
+                    <td>✅</td>
+                    <td>❌</td>
+                    <td>iPhone標準形式。高圧縮・高画質。<br><strong>※読み込み専用</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="warning">
+            <strong>⚠️ HEIC形式について</strong><br>
+            <ul style="margin-top: 10px;">
+                <li><strong>読み込みのみ対応</strong>：HEIC画像を読み込んで他の形式に変換できます</li>
+                <li><strong>出力には非対応</strong>：HEIC形式での出力はできません</li>
+                <li><strong>推奨変換先</strong>：JPEG（互換性重視）、WebP（容量重視）</li>
+            </ul>
+        </div>
+
+        <!-- 3. フォーマット選択ガイド -->
+        <h2>3. フォーマット選択ガイド</h2>
+
+        <h3>📱 HEIC（iPhone写真）を変換する場合</h3>
+        
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>変換先</th>
+                    <th>容量</th>
+                    <th>画質</th>
+                    <th>互換性</th>
+                    <th>おすすめ用途</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>JPEG</strong></td>
+                    <td>⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>メール添付、SNS投稿、汎用的な利用</td>
+                </tr>
+                <tr>
+                    <td><strong>WebP</strong></td>
+                    <td>⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐</td>
+                    <td>Webサイト掲載、容量削減</td>
+                </tr>
+                <tr style="background: #ffebee;">
+                    <td><strong>PNG</strong></td>
+                    <td>⭐</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>高画質保存（容量大）</td>
+                </tr>
+                <tr style="background: #ffebee;">
+                    <td><strong>BMP</strong></td>
+                    <td>⭐</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐</td>
+                    <td>印刷用（容量非常に大）</td>
+                </tr>
+                <tr style="background: #ffebee;">
+                    <td><strong>AVIF</strong></td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>⭐⭐</td>
+                    <td>最新環境（容量大になる場合あり）</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="warning">
+            <strong>⚠️ 容量が増える組み合わせに注意</strong><br>
+            <p style="margin-top: 10px;">HEICは非常に高効率な圧縮形式のため、以下の変換では<strong>ファイル容量が5倍以上に増える</strong>場合があります：</p>
+            <ul style="margin-top: 10px;">
+                <li><strong>HEIC → PNG</strong>：可逆圧縮のため大幅増加</li>
+                <li><strong>HEIC → BMP</strong>：無圧縮のため最も増加</li>
+                <li><strong>HEIC → AVIF</strong>：環境により増加する場合あり</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>推奨：</strong> HEIC → JPEG または HEIC → WebP</p>
+        </div>
+
+        <h3>🎯 用途別おすすめフォーマット</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>用途</th>
+                    <th>おすすめフォーマット</th>
+                    <th>理由</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>iPhone写真を共有</strong></td>
+                    <td>JPEG</td>
+                    <td>どの端末でも開ける</td>
+                </tr>
+                <tr>
+                    <td><strong>Webサイト掲載</strong></td>
+                    <td>WebP</td>
+                    <td>高圧縮で読み込み高速</td>
+                </tr>
+                <tr>
+                    <td><strong>メール添付</strong></td>
+                    <td>JPEG（リサイズ推奨）</td>
+                    <td>容量削減＋互換性</td>
+                </tr>
+                <tr>
+                    <td><strong>印刷用</strong></td>
+                    <td>PNG</td>
+                    <td>高画質維持</td>
+                </tr>
+                <tr>
+                    <td><strong>アーカイブ保存</strong></td>
+                    <td>PNG</td>
+                    <td>劣化なし</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 4. 基本的な使い方 -->
+        <h2>4. 基本的な使い方</h2>
+
+        <h3>ステップ1: 画像を選択</h3>
+        <ol>
+            <li>「📁 画像を選択」ボタンをクリック</li>
+            <li>変換したい画像を選択（複数選択可）</li>
+            <li>対応形式: JPEG、PNG、WebP、AVIF、BMP、<strong>HEIC</strong></li>
+        </ol>
+
+        <div class="info">
+            <strong>💡 HEIC画像の選び方</strong><br>
+            <p style="margin-top: 10px;">iPhoneの「写真」アプリから共有 → 「ファイルに保存」でHEIC形式のまま保存できます。</p>
+        </div>
+
+        <h3>ステップ2: 変換設定</h3>
+        <ol>
+            <li>出力フォーマットを選択（HEIC画像の場合はJPEG推奨）</li>
+            <li>画質を調整（0.6〜1.0）</li>
+            <li>必要に応じてリサイズを有効化</li>
+        </ol>
+
+        <div class="note">
+            <strong>📌 画質設定の目安</strong><br>
+            <ul style="margin-top: 10px;">
+                <li><strong>0.8〜1.0：</strong>高画質（印刷用・アーカイブ）</li>
+                <li><strong>0.7〜0.8：</strong>標準（Web掲載・SNS）</li>
+                <li><strong>0.6〜0.7：</strong>低画質（メール添付・容量重視）</li>
+            </ul>
+        </div>
+
+        <h3>ステップ3: プレビュー確認</h3>
+        <ol>
+            <li>変換後のサイズを確認</li>
+            <li>削減率を確認（マイナスの場合は容量増加）</li>
+            <li>必要に応じて設定を調整</li>
+        </ol>
+
+        <div class="warning">
+            <strong>⚠️ プレビューで容量増加が表示された場合</strong><br>
+            <p style="margin-top: 10px;">HEIC → PNG/BMP/AVIFの変換では容量が大幅に増える場合があります。<br>
+            <strong>対策：</strong>出力フォーマットをJPEGまたはWebPに変更してください。</p>
+        </div>
+
+        <h3>ステップ4: 変換実行</h3>
+        <ol>
+            <li>「🚀 一括変換を実行」ボタンをクリック</li>
+            <li>処理が完了するまで待つ（HEIC変換は通常より時間がかかります）</li>
+            <li>「💾 ZIPをダウンロード」ボタンをクリック</li>
+        </ol>
+
+        <!-- 5. よくある質問 -->
+        <h2>5. よくある質問</h2>
+
+        <h3>❓ Q1: HEICファイルが選択できません</h3>
+        <p><strong>A:</strong> 以下を確認してください：</p>
+        <ul>
+            <li>ファイル拡張子が「.heic」または「.heif」になっているか</li>
+            <li>heic2any.jsライブラリが正しく配置されているか（libsフォルダ内）</li>
+            <li>Google Chrome、Microsoft Edge、Firefoxの最新版を使用しているか</li>
+        </ul>
+
+        <h3>❓ Q2: HEIC変換に時間がかかります</h3>
+        <p><strong>A:</strong> HEIC形式は高度な圧縮技術を使用しているため、他の形式より変換に時間がかかります。</p>
+        <ul>
+            <li>1枚あたり数秒〜10秒程度かかる場合があります</li>
+            <li>処理中はブラウザを閉じないでください</li>
+            <li>大量の画像を処理する場合は、複数回に分けることをおすすめします</li>
+        </ul>
+
+        <h3>❓ Q3: HEIC → PNG/BMPで容量が5倍になりました</h3>
+        <p><strong>A:</strong> これは正常な動作です。</p>
+        <ul>
+            <li>HEICは非常に高効率な圧縮形式です</li>
+            <li>PNG/BMPは圧縮率が低い（または無圧縮）ため、容量が大幅に増えます</li>
+            <li><strong>解決策：</strong>出力フォーマットをJPEGまたはWebPに変更してください</li>
+        </ul>
+
+        <h3>❓ Q4: どのフォーマットがおすすめですか？</h3>
+        <p><strong>A:</strong> 用途によります。</p>
+        <ul>
+            <li><strong>iPhone写真を共有：</strong>JPEG（互換性重視）</li>
+            <li><strong>Webサイト：</strong>WebP（高圧縮率）</li>
+            <li><strong>印刷：</strong>PNG（高品質）</li>
+            <li><strong>メール添付：</strong>JPEG + リサイズ（容量削減）</li>
+        </ul>
+
+        <h3>❓ Q5: WebP/AVIFが選択できません</h3>
+        <p><strong>A:</strong> ブラウザが対応していない可能性があります。</p>
+        <ul>
+            <li><strong>WebP：</strong>Chrome 85以降、Edge 18以降、Firefox 65以降</li>
+            <li><strong>AVIF：</strong>Chrome 85以降、Edge 121以降、Firefox 93以降</li>
+            <li>最新版のブラウザにアップデートしてください</li>
+        </ul>
+
+        <h3>❓ Q6: 何枚まで処理できますか？</h3>
+        <p><strong>A:</strong> 最大50枚、合計300MBまでです。</p>
+        <ul>
+            <li>HEIC画像は1枚あたり2〜5MB程度が一般的です</li>
+            <li>大量の画像を処理する場合は、複数回に分けてください</li>
+        </ul>
+
+        <h3>❓ Q7: オフライン環境で使えますか？</h3>
+        <p><strong>A:</strong> はい、完全オフラインで動作します。</p>
+        <ul>
+            <li>必要なライブラリ（jszip.min.js、FileSaver.min.js、heic2any.min.js）が全て同梱されています</li>
+            <li>インターネット接続は不要です</li>
+            <li>USBメモリ等に入れて持ち運び可能です</li>
+        </ul>
+
+        <!-- 6. トラブルシューティング -->
+        <h2>6. トラブルシューティング</h2>
+
+        <h3>🔧 HEIC変換エラーが出る場合</h3>
+        <ol>
+            <li><strong>heic2any.min.jsの配置確認</strong>
+                <ul>
+                    <li>libsフォルダ内に「heic2any.min.js」があるか確認</li>
+                    <li>ファイル名が正確か確認（大文字小文字も一致させる）</li>
+                </ul>
+            </li>
+            <li><strong>ブラウザのコンソールを確認</strong>
+                <ul>
+                    <li>F12キーを押して開発者ツールを開く</li>
+                    <li>「Console」タブでエラーメッセージを確認</li>
+                </ul>
+            </li>
+            <li><strong>ブラウザを変更</strong>
+                <ul>
+                    <li>Google Chrome最新版を推奨</li>
+                    <li>Microsoft Edge、Firefoxでも動作可能</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>🔧 変換後の画質が悪い場合</h3>
+        <ul>
+            <li>画質スライダーを0.9〜1.0に設定</li>
+            <li>リサイズを無効化</li>
+            <li>出力フォーマットをPNGに変更（容量は増えます）</li>
+        </ul>
+
+        <h3>🔧 処理が途中で止まる場合</h3>
+        <ul>
+            <li>ファイル数を減らす（50枚以下）</li>
+            <li>合計サイズを減らす（300MB以下）</li>
+            <li>ブラウザのキャッシュをクリア</li>
+            <li>ブラウザを再起動</li>
+        </ul>
+
+        <!-- 7. 技術情報 -->
+        <h2>7. 技術情報</h2>
+
+        <h3>📦 使用ライブラリ</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ライブラリ</th>
+                    <th>バージョン</th>
+                    <th>用途</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>JSZip</td>
+                    <td>3.10.1</td>
+                    <td>ZIP生成</td>
+                </tr>
+                <tr>
+                    <td>FileSaver.js</td>
+                    <td>2.0.5</td>
+                    <td>ファイルダウンロード</td>
+                </tr>
+                <tr>
+                    <td>heic2any</td>
+                    <td>0.0.4</td>
+                    <td>HEIC変換</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🌐 ブラウザ対応状況</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ブラウザ</th>
+                    <th>HEIC対応</th>
+                    <th>WebP対応</th>
+                    <th>AVIF対応</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Chrome 85+</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                </tr>
+                <tr>
+                    <td>Edge 121+</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                </tr>
+                <tr>
+                    <td>Firefox 93+</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                </tr>
+                <tr>
+                    <td>Safari</td>
+                    <td>⚠️ 制限あり</td>
+                    <td>✅</td>
+                    <td>⚠️ 制限あり</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="note">
+            <strong>📌 推奨環境</strong><br>
+            <ul style="margin-top: 10px;">
+                <li><strong>OS：</strong>Windows 10/11、macOS 10.15以降</li>
+                <li><strong>ブラウザ：</strong>Google Chrome 85以降（最新版推奨）</li>
+                <li><strong>メモリ：</strong>4GB以上推奨</li>
+            </ul>
+        </div>
+
+        <!-- 8. 更新履歴 -->
+        <h2>8. 更新履歴</h2>
+
+        <h3>バージョン 1.1.0（2025年11月）</h3>
+        <ul>
+            <li>✅ HEIC/HEIF形式の読み込みに対応</li>
+            <li>✅ heic2any.jsライブラリを統合</li>
+            <li>✅ プレビュー機能でHEIC画像のサイズ推定に対応</li>
+            <li>✅ HEIC変換時のエラーハンドリング強化</li>
+            <li>✅ 取扱説明書にHEIC関連情報を追加</li>
+        </ul>
+
+        <h3>バージョン 1.0.0（2025年10月）</h3>
+        <ul>
+            <li>初回リリース</li>
+            <li>JPEG/PNG/WebP/AVIF/BMP相互変換機能</li>
+            <li>一括処理機能</li>
+            <li>プレビュー機能</li>
+        </ul>
+
+        <footer>
+            <p>© 2025 あたたか市民部デジタル推進課</p>
+            <p><a href="index.html" class="btn">ツールを起動</a></p>
+            <p style="margin-top: 20px; font-size: 0.85rem;">
+                お問い合わせ・不具合報告は担当部署までご連絡ください。
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
